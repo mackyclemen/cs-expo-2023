@@ -9,6 +9,7 @@ export interface Props {
 }
 
 const { title } = Astro.props;
+const pageTitle: String = (title ? `${title} | ` : '') + 'CS EXPO 2023';
 ---
 
 <!DOCTYPE html>
@@ -39,7 +40,7 @@ const { title } = Astro.props;
 
 		<link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
   
-		<title>{title ? `${title} | `:''}CS EXPO 2023</title>
+		<title>{pageTitle}</title>
 
 		<style>
 			html {

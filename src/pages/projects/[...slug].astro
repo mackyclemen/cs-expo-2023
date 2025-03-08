@@ -207,33 +207,15 @@ const award_fg_colors = ["white", "black", "white", "white"]
     </div>
 
     <script>
-        import JSConfetti from "js-confetti";
-        
-        const confetti = new JSConfetti();
+        import Confetti from "../../scripts/confettiConfig"
 
-        // scrolling protection
-        window.onscroll = () => {
-            document.body.classList.add("scrolling");
-            clearTimeout(window.scrollTimeout);
-            window.scrollTimeout = setTimeout(() => {
-                document.body.classList.remove("scrolling");
-            }, 100);
-        }
-
+        const confetti = new Confetti(1)
         document.getElementById("awards")
             .addEventListener("mouseenter", () => {
-                if (document.body.classList.contains("scrolling")) return;
-
                 confetti.addConfetti({
-                    // Add pastel rainbow colors
-                    confettiRadius: 12,
-                    confettiNumber: 200,
-                });
-
-                confetti.addConfetti({
-                    emojis: ['🎉', '🎊', '🎈', '🏆', '🏅'],
-                    confettiNumber: 20,
-                })
-            });
+                confettiRadius: 12,
+                confettiNumber: 25
+            }).catch((ex) => {});
+        });
     </script>
 </BaseLayout>

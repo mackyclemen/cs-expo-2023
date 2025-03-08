@@ -10,7 +10,7 @@ const colors_ordered = [
     "#f7d000", // gold
     "#bababa", // silver
     "#c77b30", // bronze
-]
+]    
 ---
 
 <style>
@@ -87,49 +87,22 @@ const colors_ordered = [
         </script>
     </main>
 
-    <script>
-        // Initialize confetti
-        import JSConfetti from "js-confetti";
-        const confetti = new JSConfetti();
-
-        window.onscroll = () => {
-            // Add class to body while scrolling
-            document.body.classList.add("scrolling");
-            clearTimeout(window.scrollTimeout);
-            window.scrollTimeout = setTimeout(() => {
-                document.body.classList.remove("scrolling");
-            }, 100);
-        };
-
-        document.querySelectorAll(".award-item").forEach((item) => {
-            // item.style.borderColor = item.dataset.color;
-            item.addEventListener("mouseenter", () => {
-                // Avoid trigger while scrolling is happening
-                if (document.body.classList.contains("scrolling")) return;
-
-                let colorSettings = {
-                    confettiRadius: 12,
-                    confettiNumber: 100,
-                };
-
-                // weird astro bug, can't let me define outside variables
-                // as it throws a "can't import module outside of module scope"
-                // -- so, redefinition it is.
-                // if color is in colors_ordered, use color on dataset
-                if (["#f7d000", "#bababa", "#c77b30"].includes(item.dataset.color)) {
-                    colorSettings.confettiColors = [item.dataset.color]
-                }
-
-                confetti.addConfetti(colorSettings)
-
-                confetti.addConfetti({
-                    // confettiColors: [item.dataset.color],
-                    emojis: ['🎉', '🎊', '🎈', '🏆', '🏅'],
-                    confettiNumber: 20,
-                })
-            })
-        })
-    </script>
     <script src="../../scripts/scroll-animation.js"> </script>
+    
+    <script>
+        import Confetti from "../../scripts/confettiConfig";
+
+        const confetti = new Confetti()
+        document.querySelectorAll(".award-item").forEach((item: HTMLElement) => {
+            item.addEventListener("mouseenter", () => {
+                confetti.addConfetti({
+                    confettiRadius: 12,
+                    confettiNumber: 25,
+                    confettiColors: [item.dataset.color]
+                }).catch((ex) => {});
+            })
+        });
+    </script>
+
 </BaseLayout>
 
